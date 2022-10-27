@@ -1,0 +1,1102 @@
+<!-- 
+
+Website Copyright Narrenschopf Bad Dürrheim / Entwickler Peter Bandle
+V49
+
+--------------------------------------------------------------------------------------------------------------------------------------
+Kurzes Vorwort:
+Der JS-Code ist leider nur in einer Datei abgelegt. Dies liegt daran, dass der Code nach und nach gewachsen ist 
+und für das Testing eine Flexiebilität benötigte.
+Nun fehlt leider die Zeit den Code in Objekte aufzuteilen, auch wenn eine Objektorientierung die Übersicht erheblich verbessern würde. 
+Allgemein bezieht sich der Code auf den Stand der Entwicklung von September 2022. 
+
+Diese Web-Anwendung ist offline lauffähig und lässt sich auf iPadOS und auf Google Chrome installieren. 
+MS-Edge und Android wurde nicht getestet, wird aber nicht ausgeschlossen. 
+Firefox erlaubt die installation von Web-Apps nicht. Es ist jedoch möglich, die Anwendung zu öffnen und im Fullscreen zu zeigen.
+
+Um die Anwendung installieren zu können, muss sie entweder über den Local-Host oder von einer HTTPS URL geöffent werden.
+Wenn die Web-App installiert wird cachet sie ihre Daten offline und benötigt danach keine Netzwerkverbindung mehr. 
+Am Desktop läuft sie in einem Fenster ohne Browserleiste und an iPadOS-Geräten in Fullscreen. 
+
+Die Anwendung ist mit VS-Code in JavaScript geschrieben. 
+Es wäre wahrscheinlich besser gewesen die Anwendung in TypeScript zu schreiben, 
+damit sie in verschiedene JS-Versionen kompiliert werden kann.
+
+Eine Steuerung über Touchflächen an der Projektionscheibe wurde angedacht, 
+aber wegen der Höhe (Durchmesser 1,6m + hängt direkt unter Decke)
+und die dadurch schwierige Bedienbarkeit verworfen.
+Somit wäre die Anwendung nicht barrierefrei. Gerade Personen mit kleiner Körpergröße 
+oder Menschen, die bewegungseingeschränkt sind, könnten Probleme haben.
+Dennoch wäre eine Anpassung des Codes denkbar, 
+bei der Sensoren als Touchflächen auf der Projektionsscheibe über einen Arduino als Tastatureingaben erkannt würden.
+
+Alternativ wäre eine Touchsteuerung auf einem sehr großen Touchmonitor oder mittels Microsoft Kinect auch denkbar.
+Dafür müsste man jedoch die Größe reduzieren.
+
+Tastatur Befehle:
+Dadurch, dass die Anwendung auf einem Tablet oder PC mit Touchscreen gezeigt wird, gibt es für die Rezipierenden keine Tastatur.
+Deswegen gibt es Abkürzungen und Entwickler-Informationen, die mittels Tastatur aktiviert werden können.
+Sie haben die Entwicklung vereinfacht und Testvorgänge beschleunigt.
+"r" = Reset/Reload
+"e" = Entwickler-Modus an (Zeigt Informationen zum Programmstatus und die Buttons inkl. deren Bezeichnung)
+"w" = Entwickler-Modus beenden
+"q" = Sprung auf die Story am Ende. Wichtig! Dafür muss man erst auf den Teller tippen und wärend einem Monolog einer Person die Taste drücken. Sonst kommt der Code durcheinander. 
+"s" = Sprung zu den Außenbildern. Wichtig! Dafür muss man erst auf den Teller tippen und während einem Monolog einer Person die Taste drücken. Sonst kommt der Code durcheinander.
+
+Da die Anwendung in JavaScript geschrieben ist, ist sie relativ kompatibel. 
+Sie läuft auf jedem Gerät mit aktuellem Webbrowser und etwas Leistung.
+Theoretisch somit mit leichten Darstellungsanpassungen auf Smartphones.
+Für die Zukunft ist davon auszugehen, dass die Anwendung langlebiger sein wird, 
+da sie nicht aus einem App Store geschmissen werden kann und alte Webseiten sehr lange auf modernen Geräten unterstützt werden.
+
+Im Fastnachtsmuseum Narrenschopf in Bad Dürrheim läuft die Anwendung auf einem iPad Pro 12,9* mit M1.
+Gesteuert wird sie auf dem Tablet und der Bildschirm wird mittels Laser-Projektor auf eine runde Projektionsfläche (d=1,6m) gespiegelt.
+
+Empfehlung des Entwicklers:
+Für eine möglichst eindrucksvolle Präsentation ist ein großer Touchmonitor am geschicktesten. 
+Er ist relativ einfach zu installieren und ermöglicht eine direkte Steuerung.
+
+Anpassungen für bestimmte Geräte oder Änderungen:
+-Schwarzer Rand ist nur Wichtig! nur bei Rundprojektionen. 
+    Bei Rechteckiger Darstellung sollte man diesen auskommentieren (sieht so besser aus)
+    ggf. müssen im CSS die ID's "div_id_schwarzer_rand" und "id_schwarzer_rand" auch auskommentiert werden.
+-In der "Tabelle für die Länge der Audio-Dateien" (main.js) müssen die Zeiten angepasst werden, 
+    wenn man die Audio-Dateien verändert. Bspw. kürzen...
+-Wenn man Bilder, Videos oder Audios gegen Versionen anderer Qualität austauschen möchte, 
+    müssen diese Dateien lediglich in den entsprechenden Medien-Ordner bei gleichem Namen ersetzt werden. 
+    
+
+-->
+
+
+<! DOCTYPE html>
+<html lang="de" manifest="manifest.json" style="background-color: black;">
+	<head>
+		<meta charset="utf-8"><!-- Kodierung Unicode-Zeichen -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><!-- (fuer iPhone) Scale Wert auf 0.5 setzen, sonst ist es zu gross -->
+		<meta name="theme-color" content="#000000"><!-- Gleich wie in der manifest.json Datei -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<!-- Google Anpassungen - ->
+		<meta name="author" content="m4p0 Fastnachtsmuseum Narrenschopf Bad Dürrheim P.B.">
+		<meta name="description" content="">
+		<!-- Android Webapp - ->
+		<meta name="mobile-web-app-capable" content="yes">
+		<!-- -------- -->
+		<link rel="stylesheet" type="text/css" href="css/style.css"><!-- StyleSheet -->
+		<link rel="manifest" href="manifest.json"><!-- manifest Datei - Wichtig für -->
+		<link rel="icon" href="img/atlogo192.png"><!-- Seiten Icon -->
+		<link rel="apple-touch-icon" href="img/atlogo192.png"/><!-- icon für iOS Devices wenn man die Seite auf den Homebildschirm speichert -->
+		<title>Ambraser Teller</title> <!-- Titel der Seite -->
+	</head>
+	<body>
+<!-- Header------------------------------------------------------------------------------------------------------------------ -->
+		<header>
+			<!-- Header ist leer -->
+		</header>
+
+		<main id="content">
+<!-- Main------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- Buttons------------------------------------------------------------------------------------------- -->	
+		<div id="id_div_buttons" class="class_div_button">
+			<!-- position: fixed // in 800 x 800 px Feld position in px angeben nicht in % -->
+				<!-- Guppen Buttons veraltet, müssen mit ihren gegenstücken entfernt werden -->
+				<button type="button" id="leer" style="width: 1px; height: 1px; position: fixed; left: 0px; top: 0px; z-index: 30; opacity: 0;">Gruppen</button>
+				<button type="button" id="gruppe_01" style="width: 1px; height: 1px; position: fixed; left: 0px; top: 0%; z-index: 31; opacity: 0;">1</button>
+				<button type="button" id="gruppe_02" style="width: 1px; height: 1px; position: fixed; left: 0px; top: 0%; z-index: 32; opacity: 0;">2</button>
+				<button type="button" id="gruppe_03" style="width: 1px; height: 1px; position: fixed; left: 0px; top: 0%; z-index: 33; opacity: 0;">3</button>
+				<button type="button" id="gruppe_04" style="width: 1px; height: 1px; position: fixed; left: 0px; top: 0%; z-index: 34; opacity: 0;">4</button>
+				<button type="button" id="gruppe_05" style="width: 1px; height: 1px; position: fixed; left: 0px; top: 0%; z-index: 35; opacity: 0;">5</button>
+			
+				<div id="id_start_button2">
+					<button type="button" id="id_start_button" style="width: 100%; height: 100%; position: fixed; z-index: 39; opacity: 0.0;">Starten Sie die Anwendung<br>durch Berühren des Tablets.</button>
+					<p id="id_start_button_text" class="blink" class="banner_wackeln" style=" position: fixed; left: 130px; top: 110px; z-index: 35; opacity: 1; font-size: 25px; color: black; font-family: Helvetica; padding: 10px; background-color: rgb(250, 235, 0); transform: rotate(-20deg); border-radius: 15px 15px 15px 15px; box-shadow: 1px 1px 5px ">Dieses Bild kann sprechen<br>Berühre einfach das Tablet</p><!--  -->
+				</div>
+
+				<button type="button" id="person_1" style="width: 65px; height: 90px; position: fixed; left: 200px; top: 490px; z-index: 35; opacity: 0.0;">P1</button>
+				<button type="button" id="person_2" style="width: 50px; height: 120px; position: fixed; left: 280px; top: 510px; z-index: 35; opacity: 0.0;">P2</button>
+				<button type="button" id="person_3" style="width: 60px; height: 60px; position: fixed; left: 300px; top: 460px; z-index: 35; opacity: 0.0;">P3</button>
+				<button type="button" id="person_4" style="width: 40px; height: 60px; position: fixed; left: 330px; top: 560px; z-index: 35; opacity: 0.0;">P4</button>
+				<button type="button" id="person_5" style="width: 60px; height: 70px; position: fixed; left: 370px; top: 580px; z-index: 35; opacity: 0.0;">P5</button>
+				<button type="button" id="person_6" style="width: 40px; height: 70px; position: fixed; left: 430px; top: 550px; z-index: 35; opacity: 0.0;">P6</button>
+
+				<button type="button" id="person_7" style="width: 65px; height: 120px; position: fixed; left: 470px; top: 500px; z-index: 35; opacity: 0.0;">P7</button>
+				<button type="button" id="person_8" style="width: 60px; height: 110px; position: fixed; left: 370px; top: 470px; z-index: 35; opacity: 0.0;">P8</button>
+				
+				<button type="button" id="person_9" style="width: 60px; height: 125px; position: fixed; left: 150px; top: 330px; z-index: 35; opacity: 0.0;">P9</button>
+				<button type="button" id="person_10" style="width: 60px; height: 60px; position: fixed; left: 205px; top: 245px; z-index: 35; opacity: 0.0;">P10</button>
+				<button type="button" id="person_11" style="width: 60px; height: 65px; position: fixed; left: 215px; top: 375px; z-index: 35; opacity: 0.0;">P11</button>
+				<button type="button" id="person_12" style="width: 65px; height: 55px; position: fixed; left: 280px; top: 265px; z-index: 35; opacity: 0.0;">P12</button>
+
+				<button type="button" id="person_13" style="width: 120px; height: 75px; position: fixed; left: 340px; top: 380px; z-index: 35; opacity: 0.0;">P13</button>
+				<button type="button" id="person_14" style="width: 1px; height: 1; position: fixed; left: 0px; top: 0px; z-index: 1; opacity: 0;">P14</button>
+				<button type="button" id="person_15" style="width: 150px; height: 70px; position: fixed; left: 470px; top: 320px; transform: rotate(60deg); z-index: 35; opacity: 0.0;">P15</button>
+				<button type="button" id="person_16" style="width: 90px; height: 60; position: fixed; left: 520px; top: 440px; z-index: 35; opacity: 0.0;">P16</button>
+				<button type="button" id="person_17" style="width: 40px; height: 60; position: fixed; left: 590px; top: 290px; z-index: 35; opacity: 0.0;">P17</button>
+				<button type="button" id="person_18" style="width: 0px; height: 0px; position: fixed; left: 0px; top: 0px; z-index: 1; opacity: 0;">P18</button>
+
+				<button type="button" id="stufe_08" style="width: 220px; height: 140px; position: fixed; left: 290px; top: 5px; z-index: 20; opacity: 0.0;">8</button>
+				<button type="button" id="stufe_01" style="width: 220px; height: 140px; position: fixed; left: 525px; top: 100px; transform: rotate(45deg); z-index: 20; opacity: 0.0;">1</button>
+				<button type="button" id="stufe_02" style="width: 140px; height: 220px; position: fixed; left: 655px; top: 290px; z-index: 20; opacity: 0.0;">2</button>
+				<button type="button" id="stufe_03" style="width: 220px; height: 140px; position: fixed; left: 520px; top: 555px; transform: rotate(135deg); z-index: 20; opacity: 0.0;">3</button>
+				<button type="button" id="stufe_04" style="width: 220px; height: 140px; position: fixed; left: 290px; top: 655px; z-index: 20; opacity: 0.0;">4</button>
+				<button type="button" id="stufe_05" style="width: 220px; height: 140px; position: fixed; left: 55px; top: 555px; transform: rotate(45deg); z-index: 20; opacity: 0.0;">5</button>
+				<button type="button" id="stufe_06" style="width: 140px; height: 220px; position: fixed; left: 5px; top: 290px; z-index: 20; opacity: 0.0;">6</button>
+				<button type="button" id="stufe_07" style="width: 220px; height: 140px; position: fixed; left: 55px; top: 100px; transform: rotate(135deg); z-index: 20; opacity: 0.0;">7</button>
+			
+				<button type="button" id="id_reset_button" style="width: 100px; height: 50px; position: fixed; right: -200px; bottom: 50px; z-index: 19; opacity: 0.8; display: none;">zurück zum Anfang</button>
+
+				<!-- Sollte entfernt werden --><button type="button" id="stufe_09" style="width: 1px; height: 1px; position: fixed; left: 0px; top: 0px; z-index: 1; opacity: 0;">9</button><!--  -->
+				<!-- Sollte entfernt werden --><button type="button" id="stufe_10" style="width: 1px; height: 1px; position: fixed; left: 0px; top: 0px; z-index: 1; opacity: 0;">10</button><!--  -->
+				<!-- Sollte entfernt werden --><button type="button" id="stufe_11" style="width: 1px; height: 1px; position: fixed; left: 0px; top: 0px; z-index: 1; opacity: 0;">11</button><!--  -->
+		</div>
+		<!-- eventuell ein Button für die Lautstärke der Anwendung (Führung/Lauter oder Normal/Leiser) -->
+		<!-- Einblendung der Entwicklerinformationen. Aktivirung: Tastaturtaste "e" und deaktivierung Taste "w" -->
+		<p id="id_entwickler_info" style="display: none; width: 300px; position: fixed; right: 5px; top: 200px; z-index: 100; font-size: 12px; color: white; font-family: Helvetica;">
+			id_entwickler_info
+			<br>Zunftmeister 9
+		</p>
+<!-- Ende Buttons--------------------------------------------------------------------------------------- -->
+
+<!-- Grafiken------------------------------------------------------------------------------------------- -->	
+<div id="id_div_grafiken">
+		<div  id="div_id_ring_rotieren" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);">	
+			<img class="ring_rotieren" id="id_ring_rotieren" src="img/ring.png" style="height: 800px;">
+		</div>
+		<div id="div_id_ring_dunkel_rotieren" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.0; z-index: 5;">	
+			<img id="id_ring_dunkel_rotieren" src="img/ring_maske_dunkel.png" style="height: 800px;">
+		</div>
+		<div  id="div_id_mitte_zoom" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 3;">
+			<img id="id_mitte_zoom" class="mitte_zoom" src="img/mitte.png" style="height: 800px; transform: scale(1);">
+		</div>
+		<div id="mitte_maske_dunkel" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.0; z-index: 2;">
+			<img class="ring_maske_rotieren ring_maske_dunkel_deckkraft" src="img/mitte_maske_dunkel.png" style="height: 800px;">
+		</div>
+		<!-- Narrenmutter Maske  --><!-- Narrenmutter maske wahrscheinlich entfernen -->
+		<div  id="div_id_maske_11" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="id_maske_narrenmutter" src="img/maske_narrenmutter.png" style="height: 800px;">
+		</div>
+
+		<div  id="div_grafik_person_1" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_1" src="img/person_1.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_2" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_2" src="img/person_2.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_3" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_3" src="img/person_3.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_4" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_4" src="img/person_4.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_5" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_5" src="img/person_5.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_6" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_6" src="img/person_6.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_7" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_7" src="img/person_7.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_8" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_8" src="img/person_8.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_9" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_9" src="img/person_9.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_10" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_10" src="img/person_10.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_11" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_11" src="img/person_11.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_12" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_12" src="img/person_12.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_13" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_13" src="img/person_13.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_15" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_15" src="img/person_15.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_16" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_16" src="img/person_16.png" style="height: 800px;">
+		</div>
+		<div  id="div_grafik_person_17" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_grafik_person_17" src="img/person_17.png" style="height: 800px;">
+		</div>
+
+		<!-- Hervorhebung der Personen in den Ebenen // eher augewählte werden dunkel damit nur nicht ausgewählte hell sind -->
+		<div  id="div_restgrau" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_restgrau" src="img/restgrau.png" style="height: 800px;">
+		</div>
+
+		<div  id="div_hervorhebung_grafik_person_1" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_1" src="img/personenhervorhebung_1.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_2" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_2" src="img/personenhervorhebung_2.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_3" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_3" src="img/personenhervorhebung_3.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_4" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_4" src="img/personenhervorhebung_4.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_5" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_5" src="img/personenhervorhebung_5.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_6" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_6" src="img/personenhervorhebung_6.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_7" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_7" src="img/personenhervorhebung_7.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_8" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_8" src="img/personenhervorhebung_8.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_9" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_9" src="img/personenhervorhebung_9.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_10" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_10" src="img/personenhervorhebung_10.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_11" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_11" src="img/personenhervorhebung_11.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_12" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_12" src="img/personenhervorhebung_12.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_13" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_13" src="img/personenhervorhebung_13.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_14" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_14" src="img/personenhervorhebung_14.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_15" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_15" src="img/personenhervorhebung_15.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_16" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_16" src="img/personenhervorhebung_16.png" style="height: 800px;">
+		</div>
+		<div  id="div_hervorhebung_grafik_person_17" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_hervorhebung_grafik_person_17" src="img/personenhervorhebung_17.png" style="height: 800px;">
+		</div>
+
+		<!-- Hervorhebung der Außenbilder in den Ebenen // eher augewählte werden dunkel damit nur nicht ausgewählte hell sind -->
+		<div  id="div_aussenbildhervorhebung_1" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_aussenbildhervorhebung_1" src="img/aussenbildhervorhebung_1.png" style="height: 800px;">
+		</div>
+		<div  id="div_aussenbildhervorhebung_2" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_aussenbildhervorhebung_2" src="img/aussenbildhervorhebung_2.png" style="height: 800px;">
+		</div>
+		<div  id="div_aussenbildhervorhebung_3" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_aussenbildhervorhebung_3" src="img/aussenbildhervorhebung_3.png" style="height: 800px;">
+		</div>
+		<div  id="div_aussenbildhervorhebung_4" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_aussenbildhervorhebung_4" src="img/aussenbildhervorhebung_4.png" style="height: 800px;">
+		</div>
+		<div  id="div_aussenbildhervorhebung_5" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_aussenbildhervorhebung_5" src="img/aussenbildhervorhebung_5.png" style="height: 800px;">
+		</div>
+		<div  id="div_aussenbildhervorhebung_6" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_aussenbildhervorhebung_6" src="img/aussenbildhervorhebung_6.png" style="height: 800px;">
+		</div>
+		<div  id="div_aussenbildhervorhebung_7" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_aussenbildhervorhebung_7" src="img/aussenbildhervorhebung_7.png" style="height: 800px;">
+		</div>
+		<div  id="div_aussenbildhervorhebung_8" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_aussenbildhervorhebung_8" src="img/aussenbildhervorhebung_8.png" style="height: 800px;">
+		</div>
+		<!-- Schwarzer Rand -->
+		<!-- Wichtig! nur bei Rundprojektion. Bei Rechteckiger Darstellung auskommentieren (sieht so besser aus) -->
+		<!-- -->
+		<div  id="div_id_schwarzer_rand" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 15;">	
+			<img  id="id_schwarzer_rand" src="img/schwarzer_rand.png" style="height: 800px; border:500px solid rgb(0, 0, 0);">
+		</div><!-- -->
+		<!-- Schwarzer Rand Ende -->
+		<div  id="div_id_doppel" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_id_doppel" src="img/ring_maske_dunkel_doppel.png" style="height: 800px;">
+		</div>
+
+		<div  id="div_id_ferdinand" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_id_ferdinand" src="img/ferdinand.png" style="height: 800px;">
+		</div>
+		<div  id="div_id_philippine" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<img  id="img_id_philippine" src="img/philippine.png" style="height: 800px;">
+		</div>
+		<!-- Film -->
+		<div  id="div_film" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<video id="id_film" height="800px" src="video/film.mp4">
+		</div>
+
+		<div  id="div_akteure" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 14; opacity: 0.0;">	
+			<h1 class="abspann" style="">Der Ambraser Narrenteller von 1528 Interaktiv</h1>
+			<h2 class="abspann">Schloss Ambras Innsbruck<br>Kunstkammer Inv. Nr. KK 4955</h2>
+
+			<p class="abspann">Konzeption<br>PROF. DR. WERNER MEZGER</p>
+			<p class="abspann">Technische Umsetzung<br>PETER BANDLE</p>
+			<p class="abspann">Sprecher<br>SASCHA OLIVER BAUER, PATRICK GIESE, KARL HEINZ HERBER,<br>MARKUS MANIG, TOM SOLO, KATRIN WEBER</p>
+			<p class="abspann">Unterstützt von<br>PROF. DR. ULLRICH DITTLER<br>VERA JOVIC-BURGER<br>SARAY PAREDES ZAVALA</p>
+			<p class="abspann">Leitender Produzent<br>ROLAND WEHRLE</p>
+			<p class="abspann">Entstanden im Rahmen des Projekts „museum4punkt0“<br>gefördert durch die Bundesbeauftragte für Kultur und Medien<br>aufgrund eines Beschlusses des Deutschen Bundestags<br>Mit Genehmigung des Kunsthistorischen Museums Wien<br>KHM Museumsverband</p>
+			<p class="abspann">Wir danken:<br>Schloss Ambras Innsbruck<br>Frau Direktorin Dr. Veronika Sandbichler</p>
+			<p class="abspann">Abt. Reproduktions- und Bildrechte<br>des Kunsthistorischen Museums Wien<br>für hochauflösende Fotos des Narrentellers Inv. Nr. KK 4955</p>
+		</div>
+		<div  id="div_id_logos_abspann" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 12; opacity: 0.0;">	
+			<img  id="img_id_logos_abspann" src="img/logos_abspann.jpg" style="height: 800px;">
+		</div>
+</div>			
+<!-- Ende Grafiken -->
+<!-- Main-Ende------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- Audio------------------------------------------------------------------------------------------- -->
+<!-- Ende Audio -->
+<div id="id_div_audio">
+		<!-- Audio-Bilder "r1e7"-->
+		<audio id="r1e7" preload="auto">
+			<source src="audio/r1e7.mp3" />
+		</audio>
+		<audio id="r2e7" preload="auto">
+			<source src="audio/r2e7.mp3" />
+		</audio>
+		<audio id="r3e7" preload="auto">
+			<source src="audio/r3e7.mp3" />
+		</audio>
+		<audio id="r4e7" preload="auto">
+			<source src="audio/r4e7.mp3" />
+		</audio>
+		<audio id="r5e7" preload="auto">
+			<source src="audio/r5e7.mp3" />
+		</audio>
+		<audio id="r6e7" preload="auto">
+			<source src="audio/r6e7.mp3" />
+		</audio>
+		<audio id="r7e7" preload="auto">
+			<source src="audio/r7e7.mp3" />
+		</audio>
+		<audio id="r8e7" preload="auto">
+			<source src="audio/r8e7.mp3" />
+		</audio>
+		
+		<!-- Personen -->
+		<!-- Die Audios hätte man bedingt mit Schleifen lösen können, 
+			jedoch sagen nicht alle Personen in jeder Ebene etwas -->
+		<audio id="person_1_4" preload="auto">
+			<source src="audio/person_1_4.mp3" />
+		</audio>
+		<audio id="person_1_5" preload="auto">
+			<source src="audio/person_1_5.mp3" />
+		</audio>
+		<audio id="person_1_6" preload="auto">
+			<source src="audio/person_1_6.mp3" />
+		</audio><!--  - ->
+		<audio id="person_1_7" preload="auto">
+			<source src="audio/person_1_7.mp3" />
+		</audio>
+		<audio id="person_1_8" preload="auto">
+			<source src="audio/person_1_8.mp3" />
+		</audio>
+		<audio id="person_1_9" preload="auto">
+			<source src="audio/person_1_9.mp3" />
+		</audio>
+		<audio id="person_1_10" preload="auto">
+			<source src="audio/person_1_10" />
+		</audio>
+		<audio id="person_1_11" preload="auto">
+			<source src="audio/person_1_11.mp3" />
+		</audio>
+		<audio id="person_1_12" preload="auto">
+			<source src="audio/person_1_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 2 -->
+		<!--  - -><audio id="person_2_1" preload="auto">
+			<source src="audio/person_2_1.mp3" />
+		</audio>
+		<audio id="person_2_2" preload="auto">
+			<source src="audio/person_2_2.mp3" />
+		</audio>
+		<audio id="person_2_3" preload="auto">
+			<source src="audio/person_2_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_2_4" preload="auto">
+			<source src="audio/person_2_4.mp3" />
+		</audio>
+		<audio id="person_2_5" preload="auto">
+			<source src="audio/person_2_5.mp3" />
+		</audio>
+		<audio id="person_2_6" preload="auto">
+			<source src="audio/person_2_6.mp3" />
+		</audio><!--  - ->
+		<audio id="person_2_7" preload="auto">
+			<source src="audio/person_2_7.mp3" />
+		</audio>
+		<audio id="person_2_8" preload="auto">
+			<source src="audio/person_2_8.mp3" />
+		</audio>
+		<audio id="person_2_9" preload="auto">
+			<source src="audio/person_2_9.mp3" />
+		</audio>
+		<audio id="person_2_10" preload="auto">
+			<source src="audio/person_2_10.mp3" />
+		</audio>
+		<audio id="person_2_11" preload="auto">
+			<source src="audio/person_2_11.mp3" />
+		</audio>
+		<audio id="person_2_12" preload="auto">
+			<source src="audio/person_2_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 3 -->
+		<!--  - ->
+		<audio id="person_3_1" preload="auto">
+			<source src="audio/person_3_1.mp3" />
+		</audio>
+		<audio id="person_3_2" preload="auto">
+			<source src="audio/person_3_2.mp3" />
+		</audio>
+		<audio id="person_3_3" preload="auto">
+			<source src="audio/person_3_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_3_4" preload="auto">
+			<source src="audio/person_3_4.mp3" />
+		</audio>
+		<audio id="person_3_5" preload="auto">
+			<source src="audio/person_3_5.mp3" />
+		</audio>
+		<audio id="person_3_6" preload="auto">
+			<source src="audio/person_3_6.mp3" />
+		</audio><!--  - ->
+		<audio id="person_3_7" preload="auto">
+			<source src="audio/person_3_7.mp3" />
+		</audio>
+		<audio id="person_3_8" preload="auto">
+			<source src="audio/person_3_8.mp3" />
+		</audio>
+		<audio id="person_3_9" preload="auto">
+			<source src="audio/person_3_9.mp3" />
+		</audio>
+		<audio id="person_3_10" preload="auto">
+			<source src="audio/person_3_10.mp3" />
+		</audio>
+		<audio id="person_3_11" preload="auto">
+			<source src="audio/person_3_11.mp3" />
+		</audio>
+		<audio id="person_3_12" preload="auto">
+			<source src="audio/person_3_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 4 -->
+		<!--  - ->
+		<audio id="person_4_1" preload="auto">
+			<source src="audio/person_4_1.mp3" />
+		</audio>
+		<audio id="person_4_2" preload="auto">
+			<source src="audio/person_4_2.mp3" />
+		</audio>
+		<audio id="person_4_3" preload="auto">
+			<source src="audio/person_4_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_4_4" preload="auto">
+			<source src="audio/person_4_4.mp3" />
+		</audio>
+		<audio id="person_4_5" preload="auto">
+			<source src="audio/person_4_5.mp3" />
+		</audio>
+		<audio id="person_4_6" preload="auto">
+			<source src="audio/person_4_6.mp3" />
+		</audio><!--  - ->
+		<audio id="person_4_7" preload="auto">
+			<source src="audio/person_4_7.mp3" />
+		</audio>
+		<audio id="person_4_8" preload="auto">
+			<source src="audio/person_4_8.mp3" />
+		</audio>
+		<audio id="person_4_9" preload="auto">
+			<source src="audio/person_4_9.mp3" />
+		</audio>
+		<audio id="person_4_10" preload="auto">
+			<source src="audio/person_4_10.mp3" />
+		</audio>
+		<audio id="person_4_11" preload="auto">
+			<source src="audio/person_4_11.mp3" />
+		</audio>
+		<audio id="person_4_12" preload="auto">
+			<source src="audio/person_4_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 5 -->
+		<!--  - ->
+		<audio id="person_5_1" preload="auto">
+			<source src="audio/person_5_1.mp3" />
+		</audio>
+		<audio id="person_5_2" preload="auto">
+			<source src="audio/person_5_2.mp3" />
+		</audio>
+		<audio id="person_5_3" preload="auto">
+			<source src="audio/person_5_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_5_4" preload="auto">
+			<source src="audio/person_5_4.mp3" />
+		</audio>
+		<audio id="person_5_5" preload="auto">
+			<source src="audio/person_5_5.mp3" />
+		</audio>
+		<audio id="person_5_6" preload="auto">
+			<source src="audio/person_5_6.mp3" />
+		</audio><!--  - ->
+		<audio id="person_5_7" preload="auto">
+			<source src="audio/person_5_7.mp3" />
+		</audio>
+		<audio id="person_5_8" preload="auto">
+			<source src="audio/person_5_8.mp3" />
+		</audio>
+		<audio id="person_5_9" preload="auto">
+			<source src="audio/person_5_9.mp3" />
+		</audio>
+		<audio id="person_5_10" preload="auto">
+			<source src="audio/person_5_10.mp3" />
+		</audio>
+		<audio id="person_5_11" preload="auto">
+			<source src="audio/person_5_11.mp3" />
+		</audio>
+		<audio id="person_5_12" preload="auto">
+			<source src="audio/person_5_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 6 -->
+		<!--  - ->
+		<audio id="person_6_1" preload="auto">
+			<source src="audio/person_6_1.mp3" />
+		</audio>
+		<audio id="person_6_2" preload="auto">
+			<source src="audio/person_6_2.mp3" />
+		</audio>
+		<audio id="person_6_3" preload="auto">
+			<source src="audio/person_6_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_6_4" preload="auto">
+			<source src="audio/person_6_4.mp3" />
+		</audio>
+		<audio id="person_6_5" preload="auto">
+			<source src="audio/person_6_5.mp3" />
+		</audio>
+		<audio id="person_6_6" preload="auto">
+			<source src="audio/person_6_6.mp3" />
+		</audio><!--  - ->
+		<audio id="person_6_7" preload="auto">
+			<source src="audio/person_6_7.mp3" />
+		</audio>
+		<audio id="person_6_8" preload="auto">
+			<source src="audio/person_6_8.mp3" />
+		</audio>
+		<audio id="person_6_9" preload="auto">
+			<source src="audio/person_6_9.mp3" />
+		</audio>
+		<audio id="person_6_10" preload="auto">
+			<source src="audio/person_6_10.mp3" />
+		</audio>
+		<audio id="person_6_11" preload="auto">
+			<source src="audio/person_6_11.mp3" />
+		</audio>
+		<audio id="person_6_12" preload="auto">
+			<source src="audio/person_6_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 7 -->
+		<!--  - ->
+		<audio id="person_7_1" preload="auto">
+			<source src="audio/person_7_1.mp3" />
+		</audio>
+		<audio id="person_7_2" preload="auto">
+			<source src="audio/person_7_2.mp3" />
+		</audio>
+		<audio id="person_7_3" preload="auto">
+			<source src="audio/person_7_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_7_4" preload="auto">
+			<source src="audio/person_7_4.mp3" />
+		</audio>
+		<audio id="person_7_5" preload="auto">
+			<source src="audio/person_7_5.mp3" />
+		</audio>
+		<audio id="person_7_6" preload="auto">
+			<source src="audio/person_7_6.mp3" />
+		</audio><!--  - ->
+		<audio id="person_7_7" preload="auto">
+			<source src="audio/person_7_7.mp3" />
+		</audio>
+		<audio id="person_7_8" preload="auto">
+			<source src="audio/person_7_8.mp3" />
+		</audio>
+		<audio id="person_7_9" preload="auto">
+			<source src="audio/person_7_9.mp3" />
+		</audio>
+		<audio id="person_7_10" preload="auto">
+			<source src="audio/person_7_10.mp3" />
+		</audio>
+		<audio id="person_7_11" preload="auto">
+			<source src="audio/person_7_11.mp3" />
+		</audio>
+		<audio id="person_7_12" preload="auto">
+			<source src="audio/person_7_12.mp3" />
+		</audio><!--  -->
+
+
+
+		<!-- Person 8 Narrenmutter -->
+		<!--  - ->
+		<audio id="person_8_1" preload="auto">
+			<source src="audio/person_8_1.mp3" />
+		</audio>
+		<audio id="person_8_2" preload="auto">
+			<source src="audio/person_8_2.mp3" />
+		</audio>
+		<audio id="person_8_3" preload="auto">
+			<source src="audio/person_8_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_8_4" preload="auto">
+			<source src="audio/person_8_4.mp3" />
+		</audio>
+		<audio id="person_8_5" preload="auto">
+			<source src="audio/person_8_5.mp3" />
+		</audio>
+		<audio id="person_8_6" preload="auto">
+			<source src="audio/person_8_6.mp3" />
+		</audio><!--  - ->
+		<audio id="person_8_7" preload="auto">
+			<source src="audio/person_8_7.mp3" />
+		</audio>
+		<audio id="person_8_8" preload="auto">
+			<source src="audio/person_8_8.mp3" />
+		</audio>
+		<audio id="person_8_9" preload="auto">
+			<source src="audio/person_8_9.mp3" />
+		</audio>
+		<audio id="person_8_10" preload="auto">
+			<source src="audio/person_8_10.mp3" />
+		</audio>
+		<audio id="person_8_11" preload="auto">
+			<source src="audio/person_8_11.mp3" />
+		</audio>
+		<audio id="person_8_12" preload="auto">
+			<source src="audio/person_8_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 9 Zunftmeister -->
+		<audio id="person_9_1" preload="auto">
+			<source src="audio/person_9_1.mp3" />
+		</audio><!--  - ->
+		<audio id="person_9_2" preload="auto">
+			<source src="audio/person_9_2.mp3" />
+		</audio>
+		<audio id="person_9_3" preload="auto">
+			<source src="audio/person_9_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_9_4" preload="auto">
+			<source src="audio/person_9_4.mp3" />
+		</audio>
+		<audio id="person_9_5" preload="auto">
+			<source src="audio/person_9_5.mp3" />
+		</audio>
+		<audio id="person_9_6" preload="auto">
+			<source src="audio/person_9_6.mp3" />
+		</audio>
+		<audio id="person_9_7" preload="auto">
+			<source src="audio/person_9_7.mp3" />
+		</audio>
+		<audio id="person_9_8" preload="auto">
+			<source src="audio/person_9_8.mp3" />
+		</audio><!--  - ->
+		<audio id="person_9_9" preload="auto">
+			<source src="audio/person_9_9.mp3" />
+		</audio>
+		<audio id="person_9_10" preload="auto">
+			<source src="audio/person_9_10.mp3" />
+		</audio>
+		<audio id="person_9_11" preload="auto">
+			<source src="audio/person_9_11.mp3" />
+		</audio>
+		<audio id="person_9_12" preload="auto">
+			<source src="audio/person_9_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 10 -->
+		<!--  - ->
+		<audio id="person_10_1" preload="auto">
+			<source src="audio/person_10_1.mp3" />
+		</audio>
+		<audio id="person_10_2" preload="auto">
+			<source src="audio/person_10_2.mp3" />
+		</audio>
+		<audio id="person_10_3" preload="auto">
+			<source src="audio/person_10_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_10_4" preload="auto">
+			<source src="audio/person_10_4.mp3" />
+		</audio>
+		<audio id="person_10_5" preload="auto">
+			<source src="audio/person_10_5.mp3" />
+		</audio>
+		<audio id="person_10_6" preload="auto">
+			<source src="audio/person_10_6.mp3" />
+		</audio>
+		<audio id="person_10_7" preload="auto">
+			<source src="audio/person_10_7.mp3" />
+		</audio><!--  - ->
+		<audio id="person_10_8" preload="auto">
+			<source src="audio/person_10_8.mp3" />
+		</audio>
+		<audio id="person_10_9" preload="auto">
+			<source src="audio/person_10_9.mp3" />
+		</audio>
+		<audio id="person_10_10" preload="auto">
+			<source src="audio/person_10_10.mp3" />
+		</audio>
+		<audio id="person_10_11" preload="auto">
+			<source src="audio/person_10_11.mp3" />
+		</audio>
+		<audio id="person_10_12" preload="auto">
+			<source src="audio/person_10_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 11 -->
+		<!--  - ->
+		<audio id="person_11_1" preload="auto">
+			<source src="audio/person_11_1.mp3" />
+		</audio>
+		<audio id="person_11_2" preload="auto">
+			<source src="audio/person_11_2.mp3" />
+		</audio>
+		<audio id="person_11_3" preload="auto">
+			<source src="audio/person_11_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_11_4" preload="auto">
+			<source src="audio/person_11_4.mp3" />
+		</audio>
+		<audio id="person_11_5" preload="auto">
+			<source src="audio/person_11_5.mp3" />
+		</audio>
+		<audio id="person_11_6" preload="auto">
+			<source src="audio/person_11_6.mp3" />
+		</audio>
+		<audio id="person_11_7" preload="auto">
+			<source src="audio/person_11_7.mp3" />
+		</audio><!--  - ->
+		<audio id="person_11_8" preload="auto">
+			<source src="audio/person_11_8.mp3" />
+		</audio>
+		<audio id="person_11_9" preload="auto">
+			<source src="audio/person_11_9.mp3" />
+		</audio>
+		<audio id="person_11_10" preload="auto">
+			<source src="audio/person_11_10" />
+		</audio>
+		<audio id="person_11_11" preload="auto">
+			<source src="audio/person_11_11.mp3" />
+		</audio>
+		<audio id="person_11_12" preload="auto">
+			<source src="audio/person_11_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 12 -->
+		<!--  - ->
+		<audio id="person_12_1" preload="auto">
+			<source src="audio/person_12_1.mp3" />
+		</audio>
+		<audio id="person_12_2" preload="auto">
+			<source src="audio/person_12_2.mp3" />
+		</audio>
+		<audio id="person_12_3" preload="auto">
+			<source src="audio/person_12_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_12_4" preload="auto">
+			<source src="audio/person_12_4.mp3" />
+		</audio>
+		<audio id="person_12_5" preload="auto">
+			<source src="audio/person_12_5.mp3" />
+		</audio>
+		<audio id="person_12_6" preload="auto">
+			<source src="audio/person_12_6.mp3" />
+		</audio>
+		<audio id="person_12_7" preload="auto">
+			<source src="audio/person_12_7.mp3" />
+		</audio><!--  - ->
+		<audio id="person_12_8" preload="auto">
+			<source src="audio/person_12_8.mp3" />
+		</audio>
+		<audio id="person_12_9" preload="auto">
+			<source src="audio/person_12_9.mp3" />
+		</audio>
+		<audio id="person_12_10" preload="auto">
+			<source src="audio/person_12_10" />
+		</audio>
+		<audio id="person_12_11" preload="auto">
+			<source src="audio/person_12_11.mp3" />
+		</audio>
+		<audio id="person_12_12" preload="auto">
+			<source src="audio/person_12_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 13 -->
+		<!--  - ->
+		<audio id="person_13_1" preload="auto">
+			<source src="audio/person_13_1.mp3" />
+		</audio>
+		<audio id="person_13_2" preload="auto">
+			<source src="audio/person_13_2.mp3" />
+		</audio>
+		<audio id="person_13_3" preload="auto">
+			<source src="audio/person_13_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_13_4" preload="auto">
+			<source src="audio/person_13_4.mp3" />
+		</audio>
+		<audio id="person_13_5" preload="auto">
+			<source src="audio/person_13_5.mp3" />
+		</audio>
+		<audio id="person_13_6" preload="auto">
+			<source src="audio/person_13_6.mp3" />
+		</audio>
+		<audio id="person_13_7" preload="auto">
+			<source src="audio/person_13_7.mp3" />
+		</audio><!--  - ->
+		<audio id="person_13_8" preload="auto">
+			<source src="audio/person_13_8.mp3" />
+		</audio>
+		<audio id="person_13_9" preload="auto">
+			<source src="audio/person_13_9.mp3" />
+		</audio>
+		<audio id="person_13_10" preload="auto">
+			<source src="audio/person_13_10" />
+		</audio>
+		<audio id="person_13_11" preload="auto">
+			<source src="audio/person_13_11.mp3" />
+		</audio>
+		<audio id="person_13_12" preload="auto">
+			<source src="audio/person_13_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 14 -->
+		<!--  - ->
+		<audio id="person_14_1" preload="auto">
+			<source src="audio/person_14_1.mp3" />
+		</audio>
+		<audio id="person_14_2" preload="auto">
+			<source src="audio/person_14_2.mp3" />
+		</audio>
+		<audio id="person_14_3" preload="auto">
+			<source src="audio/person_14_3.mp3" />
+		</audio>
+		<audio id="person_14_4" preload="auto">
+			<source src="audio/person_14_4.mp3" />
+		</audio>
+		<audio id="person_14_5" preload="auto">
+			<source src="audio/person_14_5.mp3" />
+		</audio>
+		<audio id="person_14_6" preload="auto">
+			<source src="audio/person_14_6.mp3" />
+		</audio>
+		<audio id="person_14_7" preload="auto">
+			<source src="audio/person_14_7.mp3" />
+		</audio>
+		<audio id="person_14_8" preload="auto">
+			<source src="audio/person_14_8.mp3" />
+		</audio>
+		<audio id="person_14_9" preload="auto">
+			<source src="audio/person_14_9.mp3" />
+		</audio>
+		<audio id="person_14_10" preload="auto">
+			<source src="audio/person_14_10" />
+		</audio>
+		<audio id="person_14_11" preload="auto">
+			<source src="audio/person_14_11.mp3" />
+		</audio>
+		<audio id="person_14_12" preload="auto">
+			<source src="audio/person_14_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 15 -->
+		<!--  - ->
+		<audio id="person_15_1" preload="auto">
+			<source src="audio/person_15_1.mp3" />
+		</audio><!--  -->
+		<audio id="person_15_2" preload="auto">
+			<source src="audio/person_15_2.mp3" />
+		</audio><!--  - ->
+		<audio id="person_15_3" preload="auto">
+			<source src="audio/person_15_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_15_4" preload="auto">
+			<source src="audio/person_15_4.mp3" />
+		</audio>
+		<audio id="person_15_5" preload="auto">
+			<source src="audio/person_15_5.mp3" />
+		</audio>
+		<audio id="person_15_6" preload="auto">
+			<source src="audio/person_15_6.mp3" />
+		</audio>
+		<audio id="person_15_7" preload="auto">
+			<source src="audio/person_15_7.mp3" />
+		</audio><!--  - ->
+		<audio id="person_15_8" preload="auto">
+			<source src="audio/person_15_8.mp3" />
+		</audio>
+		<audio id="person_15_9" preload="auto">
+			<source src="audio/person_15_9.mp3" />
+		</audio>
+		<audio id="person_15_10" preload="auto">
+			<source src="audio/person_15_10" />
+		</audio>
+		<audio id="person_15_11" preload="auto">
+			<source src="audio/person_15_11.mp3" />
+		</audio>
+		<audio id="person_15_12" preload="auto">
+			<source src="audio/person_15_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 16 -->
+		<!--  - ->
+		<audio id="person_16_1" preload="auto">
+			<source src="audio/person_16_1.mp3" />
+		</audio>
+		<audio id="person_16_2" preload="auto">
+			<source src="audio/person_16_2.mp3" />
+		</audio>
+		<audio id="person_16_3" preload="auto">
+			<source src="audio/person_16_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_16_4" preload="auto">
+			<source src="audio/person_16_4.mp3" />
+		</audio>
+		<audio id="person_16_5" preload="auto">
+			<source src="audio/person_16_5.mp3" />
+		</audio>
+		<audio id="person_16_6" preload="auto">
+			<source src="audio/person_16_6.mp3" />
+		</audio>
+		<audio id="person_16_7" preload="auto">
+			<source src="audio/person_16_7.mp3" />
+		</audio><!--  - ->
+		<audio id="person_16_8" preload="auto">
+			<source src="audio/person_16_8.mp3" />
+		</audio>
+		<audio id="person_16_9" preload="auto">
+			<source src="audio/person_16_9.mp3" />
+		</audio>
+		<audio id="person_16_10" preload="auto">
+			<source src="audio/person_16_10" />
+		</audio>
+		<audio id="person_16_11" preload="auto">
+			<source src="audio/person_16_11.mp3" />
+		</audio>
+		<audio id="person_16_12" preload="auto">
+			<source src="audio/person_16_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 17 -->
+		<!--  - ->
+		<audio id="person_17_1" preload="auto">
+			<source src="audio/person_17_1.mp3" />
+		</audio>
+		<audio id="person_17_2" preload="auto">
+			<source src="audio/person_17_2.mp3" />
+		</audio>
+		<audio id="person_17_3" preload="auto">
+			<source src="audio/person_17_3.mp3" />
+		</audio><!--  -->
+		<audio id="person_17_4" preload="auto">
+			<source src="audio/person_17_4.mp3" />
+		</audio>
+		<audio id="person_17_5" preload="auto">
+			<source src="audio/person_17_5.mp3" />
+		</audio>
+		<audio id="person_17_6" preload="auto">
+			<source src="audio/person_17_6.mp3" />
+		</audio>
+		<audio id="person_17_7" preload="auto">
+			<source src="audio/person_17_7.mp3" />
+		</audio><!--  - ->
+		<audio id="person_17_8" preload="auto">
+			<source src="audio/person_17_8.mp3" />
+		</audio>
+		<audio id="person_17_9" preload="auto">
+			<source src="audio/person_17_9.mp3" />
+		</audio>
+		<audio id="person_17_10" preload="auto">
+			<source src="audio/person_17_10" />
+		</audio>
+		<audio id="person_17_11" preload="auto">
+			<source src="audio/person_17_11.mp3" />
+		</audio>
+		<audio id="person_17_12" preload="auto">
+			<source src="audio/person_17_12.mp3" />
+		</audio><!--  -->
+		<!-- Person 18 -->
+		<!--  - ->
+		<audio id="person_18_1" preload="auto">
+			<source src="audio/person_18_1.mp3" />
+		</audio>
+		<audio id="person_18_2" preload="auto">
+			<source src="audio/person_18_2.mp3" />
+		</audio>
+		<audio id="person_18_3" preload="auto">
+			<source src="audio/person_18_3.mp3" />
+		</audio>
+		<audio id="person_18_4" preload="auto">
+			<source src="audio/person_18_4.mp3" />
+		</audio>
+		<audio id="person_18_5" preload="auto">
+			<source src="audio/person_18_5.mp3" />
+		</audio>
+		<audio id="person_18_6" preload="auto">
+			<source src="audio/person_18_6.mp3" />
+		</audio>
+		<audio id="person_18_7" preload="auto">
+			<source src="audio/person_18_7.mp3" />
+		</audio>
+		<audio id="person_18_8" preload="auto">
+			<source src="audio/person_18_8.mp3" />
+		</audio>
+		<audio id="person_18_9" preload="auto">
+			<source src="audio/person_18_9.mp3" />
+		</audio>
+		<audio id="person_18_10" preload="auto">
+			<source src="audio/person_18_10" />
+		</audio>
+		<audio id="person_18_11" preload="auto">
+			<source src="audio/person_18_11.mp3" />
+		</audio>
+		<audio id="person_18_12" preload="auto">
+			<source src="audio/person_18_12.mp3" />
+		</audio><!--  -->
+
+		<!-- extra Audio Narrenmutter - Wenn Söhne fertig gesprochen haben automatisch -->
+		<audio id="person_8_0" preload="auto">
+			<source src="audio/person_8_0.mp3" />
+		</audio>
+		<!-- extra Audio Randbild 8 wenn es in Ebene 7 noch grau ist -->
+		<audio id="r81e7" preload="auto">
+			<source src="audio/r81e7.mp3" />
+		</audio>
+
+		<!-- extra Audio Ende -->
+		<audio id="ende_1" preload="auto">
+			<source src="audio/ende_1.mp3" />
+		</audio>
+		<audio id="ende_2" preload="auto">
+			<source src="audio/ende_2.mp3" />
+		</audio>
+		<audio id="ende_3" preload="auto">
+			<source src="audio/ende_3.mp3" />
+		</audio>
+		<audio id="ende_4" preload="auto">
+			<source src="audio/ende_4.mp3" />
+		</audio>
+</div><!-- Ende Audio -->
+<!-- Skript------------------------------------------------------------------------------------------------------------------ -->
+<script>
+	//"Installation" des ServiceWorker. Wichtig für die Installation und Offlinefähigkeit
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register("sw.js");
+		}
+</script>
+<div id="id_div_javascript">
+	<!-- das Main-Script - Der Code der Anwendung -->
+	<script src="js/main.js"></script>
+</div>
+<!-- Skript-Ende -->
+		</main>
+<!-- Footer------------------------------------------------------------------------------------------------------------------ -->
+		<footer>
+			
+		</footer>	
+	</body>
+</html>	

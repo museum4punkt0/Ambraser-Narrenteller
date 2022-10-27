@@ -1,0 +1,53 @@
+body, html{
+    margin: 0;
+    padding: 0;
+    }
+
+.class_div_button{
+    position: fixed;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%,-50%);
+    z-index:30;
+    height: 800px;
+    width: 800px;
+    }
+
+    .blink {
+        animation-name: animation_blink;
+        animation-timing-function: ease-out;
+        animation-duration: 8s; 
+        animation-iteration-count: infinite;
+        }
+        @keyframes animation_blink {
+            0% { opacity: 1; }
+            40% { opacity: 0.95; }
+            45% { opacity: 0.1; }
+            55% { opacity: 0.0; }
+            60% { opacity: 0.95; }
+            100% { opacity: 1; }    
+            }
+    
+    .abspann{
+        
+        text-align: center;
+        font-family: 'Times New Roman', Helvetica, Arial, cursive;
+        text-align: center;
+        color: white;
+        background-color: black;
+        padding: 12 0px;
+        margin: 0px;
+        }
+    h1{
+        font-size: 20px;
+        }
+    h2{
+        font-size: 16px;
+        }
+    p{
+        font-size: 14px;
+        }
+    .banner_wackeln {
+    /*wurde gekürzt*/
+    
+        }
