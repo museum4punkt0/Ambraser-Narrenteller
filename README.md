@@ -3,10 +3,7 @@ V49
 
 --------------------------------------------------------------------------------------------------------------------------------------
 # Kurzbeschreibung
-Der JS-Code ist leider nur in einer Datei abgelegt. Dies liegt daran, dass der Code nach und nach gewachsen ist 
-und für das Testing eine Flexiebilität benötigte.
-Nun fehlt leider die Zeit den Code in Objekte aufzuteilen, auch wenn eine Objektorientierung die Übersicht erheblich verbessern würde. 
-Allgemein bezieht sich der Code auf den Stand der Entwicklung von September 2022. 
+Der JS-Code ist Code ist nach und nach gewachsen und daher nur in einer Datei abgelegt. Allgemein bezieht sich der Code auf den Stand der Entwicklung von September 2022. 
 
 # Entstehungskontext & Förderhinweis
 Diese Anwendung Ambraser Teller ist entstanden im Verbundprojekt museum4punkt0 – Digitale Strategien für das Museum der Zukunft, Teilprojekt [Teilprojektname einfügen gemäß Verbund-Website, Kurzform möglich]. Das Projekt museum4punkt0 wird gefördert durch die Beauftragte der Bundesregierung für Kultur und Medien aufgrund eines Beschlusses des Deutschen Bundestages. Weitere Informationen: www.museum4punkt0.de
