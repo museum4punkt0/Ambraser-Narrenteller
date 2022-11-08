@@ -87,7 +87,7 @@ Anpassungen für bestimmte Geräte oder Änderungen:
 
 ...
 
-Beteiligung
+# Beteiligung
 
 ...
 
