@@ -5,9 +5,7 @@ MAmbraser Narrenteller
 
 * [Kurzbeschreibung](#Kurzbeschreibung)
 * [Installation](#Installation)
-* [Usage](#Usage)
-* [Technology stack](#TechStack)
-* [Codebase](#Codebase)
+* [Benutzung](#Usage)
 * [Beteiligung](#Beteiligung)
 * [Credits](#Credits)
 * [License](#License)
@@ -85,3 +83,12 @@ Anpassungen für bestimmte Geräte oder Änderungen:
 -Wenn man Bilder, Videos oder Audios gegen Versionen anderer Qualität austauschen möchte, 
     müssen diese Dateien lediglich in den entsprechenden Medien-Ordner bei gleichem Namen ersetzt werden. 
     
+# Beteiligung
+
+...
+
+# Credits
+
+...
+
+# Lizenz
