@@ -96,5 +96,6 @@ Anpassungen für bestimmte Geräte oder Änderungen:
 
 # Lizenz
 
+GNU GENERAL PUBLIC LICENSE Version 3.0
 Website Copyright Narrenschopf Bad Dürrheim / Entwickler Peter Bandle
 V49
