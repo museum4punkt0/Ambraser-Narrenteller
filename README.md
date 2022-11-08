@@ -5,10 +5,10 @@ MAmbraser Narrenteller
 
 * [Kurzbeschreibung](#Kurzbeschreibung)
 * [Installation](#Installation)
-* [Benutzung](#Usage)
+* [Benutzung](#Benutzung)
 * [Beteiligung](#Beteiligung)
 * [Credits](#Credits)
-* [License](#License)
+* [Licenz](#Lizenz)
 Website Copyright Narrenschopf Bad Dürrheim / Entwickler Peter Bandle
 V49
 
