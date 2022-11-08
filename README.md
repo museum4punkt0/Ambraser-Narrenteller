@@ -8,9 +8,8 @@ MAmbraser Narrenteller
 * [Benutzung](#Benutzung)
 * [Beteiligung](#Beteiligung)
 * [Credits](#Credits)
-* [Licenz](#Lizenz)
-Website Copyright Narrenschopf Bad Dürrheim / Entwickler Peter Bandle
-V49
+* [Lizenz](#Lizenz)
+
 
 --------------------------------------------------------------------------------------------------------------------------------------
 # Kurzbeschreibung
@@ -96,3 +95,6 @@ Anpassungen für bestimmte Geräte oder Änderungen:
 ...
 
 # Lizenz
+
+Website Copyright Narrenschopf Bad Dürrheim / Entwickler Peter Bandle
+V49
