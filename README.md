@@ -3,6 +3,8 @@ V49
 
 --------------------------------------------------------------------------------------------------------------------------------------
 # Kurzbeschreibung
+Die Anwendung „Ambraser Teller“ ist eine interaktive Touchanwendung zur selbständigen Erforschung des Gemäldes durch die Museumsbesucher*innen. Der Teller wurde wurde aus 349 Einzelbildern digital nachgebaut, durch Audiotexte werden die Figuren belebt und erzählen bei Berührung mehr über sich. Aus didaktischen Gründen sind die Figuren nicht frei wählbar, sondern folgen einer stringenten Erzähllogik.  
+
 Der JS-Code ist Code ist nach und nach gewachsen und daher nur in einer Datei abgelegt. Allgemein bezieht sich der Code auf den Stand der Entwicklung von September 2022. 
 
 # Entstehungskontext & Förderhinweis
