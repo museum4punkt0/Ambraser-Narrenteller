@@ -1,3 +1,16 @@
+# Name der Anwendung
+MAmbraser Narrenteller
+
+## Inhaltsverzeichnis
+
+* [Kurzbeschreibung](#Kurzbeschreibung)
+* [Installation](#Installation)
+* [Usage](#Usage)
+* [Technology stack](#TechStack)
+* [Codebase](#Codebase)
+* [Beteiligung](#Beteiligung)
+* [Credits](#Credits)
+* [License](#License)
 Website Copyright Narrenschopf Bad Dürrheim / Entwickler Peter Bandle
 V49
 
