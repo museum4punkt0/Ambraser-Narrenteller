@@ -83,7 +83,11 @@ Anpassungen für bestimmte Geräte oder Änderungen:
 -Wenn man Bilder, Videos oder Audios gegen Versionen anderer Qualität austauschen möchte, 
     müssen diese Dateien lediglich in den entsprechenden Medien-Ordner bei gleichem Namen ersetzt werden. 
     
-# Beteiligung
+# Benutzung
+
+...
+
+Beteiligung
 
 ...
 
