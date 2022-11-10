@@ -1,5 +1,5 @@
 # Name der Anwendung
-MAmbraser Narrenteller
+Ambraser Narrenteller
 
 ## Inhaltsverzeichnis
 
