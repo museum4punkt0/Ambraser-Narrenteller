@@ -6,7 +6,6 @@ Ambraser Narrenteller
 * [Kurzbeschreibung](#Kurzbeschreibung)
 * [Installation](#Installation)
 * [Benutzung](#Benutzung)
-* [Beteiligung](#Beteiligung)
 * [Credits](#Credits)
 * [Lizenz](#Lizenz)
 
@@ -84,15 +83,13 @@ Anpassungen für bestimmte Geräte oder Änderungen:
     
 # Benutzung
 
-...
+Als Hardware für die Präsentation kommen im Museum ein iPad Pro 12,9* mit M1 und ein Laserprojektor zum Einsatz. Entwickelt wurde die Anwendung auf dem Dell XPS 15 auf dem sie ebenfalls reibungslos funktioniert.
 
-# Beteiligung
-
-...
+Lesen Sie gern den Code auf Github nach. Selbst wenn Sie keinerlei Programmierkentnisse haben, stehen dort zum einen sehr viele technische Hinweise und zum anderen werden Codeabschnitte auch durch Kommentare erklärt.
 
 # Credits
 
-...
+Vereiningung Schwäbisch-Alemannischer Narrenzünfte e.V., Urheber Peter Bandle
 
 # Lizenz
 
