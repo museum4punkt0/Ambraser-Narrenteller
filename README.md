@@ -17,9 +17,7 @@ Die Anwendung „Ambraser Teller“ ist eine interaktive Touchanwendung zur selb
 Der JS-Code ist Code ist nach und nach gewachsen und daher nur in einer Datei abgelegt. Allgemein bezieht sich der Code auf den Stand der Entwicklung von September 2022. 
 
 # Entstehungskontext & Förderhinweis
-Diese Anwendung Ambraser Teller ist entstanden im Verbundprojekt museum4punkt0 – Digitale Strategien für das Museum der Zukunft, Teilprojekt Kulturgut Fastnacht digital. Das Projekt museum4punkt0 wird gefördert durch die Beauftragte der Bundesregierung für Kultur und Medien aufgrund eines Beschlusses des Deutschen Bundestages. Weitere Informationen: www.museum4punkt0.de
-
-Dieses Multimediasystem ist entstanden im Verbundprojekt _museum4punkt0 – Digitale Strategien für das Museum der Zukunft_, Teilprojekt "Forschung in Museen erklären, verstehen, mitmachen". Das Projekt museum4punkt0 wird gefördert durch die Beauftragte der Bundesregierung für Kultur und Medien aufgrund eines Beschlusses des Deutschen Bundestages. [Weitere Informationen](https://www.museum4punkt0.de)
+Diese Anwendung Ambraser Teller ist entstanden im Verbundprojekt _museum4punkt0 – Digitale Strategien für das Museum der Zukunft_, Teilprojekt Kulturgut Fastnacht digital. Das Projekt museum4punkt0 wird gefördert durch die Beauftragte der Bundesregierung für Kultur und Medien aufgrund eines Beschlusses des Deutschen Bundestages. Weitere Informationen: www.museum4punkt0.de
 
 ![BKM-Logo](https://github.com/museum4punkt0/Object-by-Object/blob/77bba25aa5a7f9948d4fd6f0b59f5bfb56ae89e2/04%20Logos/BKM_Fz_2017_Web_de.gif)
 ![NeustartKultur](https://github.com/museum4punkt0/Object-by-Object/blob/22f4e86d4d213c87afdba45454bf62f4253cada1/04%20Logos/BKM_Neustart_Kultur_Wortmarke_pos_RGB_RZ_web.jpg)
